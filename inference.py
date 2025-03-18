@@ -33,6 +33,13 @@ def parse_args():
 
 
 if __name__ == '__main__':
+    import os
+    import sys
+    os.environ["HUGGINGFACE_HUB_CACHE"] = "/home/ludan/.cache/huggingface/hub"
+    os.environ["HF_HOME"] = "/home/ludan/.cache/huggingface"
+    os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"
+    #device 只让cuda：1可见
+    os.environ["CUDA_VISIBLE_DEVICES"] = "1"
     args = parse_args()
     vae = AutoencoderKL.from_pretrained("madebyollin/sdxl-vae-fp16-fix", torch_dtype=torch.float16)
     pipeline = StableDiffusionXLPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0",
